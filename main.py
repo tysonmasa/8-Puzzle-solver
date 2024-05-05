@@ -20,7 +20,7 @@ def main():
         userPuzzle = firstRow, secondRow, thirdRow
 
     
-    userAlgo = input("Enter your choice of algorithm: \nUniform Cost Search\nA* with the Misplaced Tile heuristic.\nA* with the Manhattan distance heuristic.\n")
+    userAlgo = input("Enter your choice of algorithm: \nUniform Cost Search\nA* with the Misplaced Tile heuristic.\nA* with the Euclidean distance heuristic.\n")
 
     if userAlgo == 1:
         print(f"Uniform Cost Search selected.")
@@ -29,6 +29,6 @@ def main():
         print(f"A* with the Misplaced Tile heuristic selected.")
         # Do A* with Misplaced Tile heuristic
     elif userAlgo == 3:
-        print(f"A* with the Manhattan distance heuristic selected.")
-        # Do A* with Manhattan distance heuristic
+        print(f"A* with the Euclidean distance heuristic selected.")
+        # Do A* with Euclidean distance heuristic
 main()
