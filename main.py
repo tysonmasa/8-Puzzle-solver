@@ -1,3 +1,4 @@
+import move
 import sys
 import operator
 from pythonds.basic.stack import Stack
@@ -16,7 +17,7 @@ class Node:
 
 #A* with Euclidean distance heuristic
 #heuristic
-def i_to_position(i);
+def i_to_position(i):
     return(i//3, i%3)
 
 def heuc(state, goal):
