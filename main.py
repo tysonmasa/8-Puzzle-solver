@@ -11,9 +11,22 @@ class Node:
         self.parent = parent_node # showing its parent node
         self.depth = depth # showing the depth of this node
         self.operator = operator # showing the operator that create this node
-        
+
         self.heuristic=None # initialize the heuristic to be none
 
+#A* with Euclidean distance heuristic
+#heuristic
+def i_to_position(i);
+    return(i//3, i%3)
+
+def heuc(state, goal):
+    match = 0
+    for i in range(9):
+        if state.state[i] != goal[i] and state.state[i] != 0:
+            state_pos = i_to_position(i)
+            goal_pos = i_to_position(goal.index(state.state[i]))
+            match += ((state_pos[0] - goal_pos[0]) ** 2 + (state_pos[1] - goal_pos[1]) ** 2) ** 0.5
+    state.heuristic = match
 def display_board(state):
     print( "State:")
     print( "%i %i %i" % (state[0], state[3], state[6]))
@@ -112,16 +125,6 @@ def A_star_missing(init, goal):
         head = head.parent
     return path
 
-
-#A* with Euclidean distance heuristic
-#heuristic
-def heuc(state, goal):
-    match = 0
-    for i in range(0,9):
-        if state.state[i] != goal[i]:
-            match += 1
-    state.heuristic=match
-
 #function
 def A_star_euc(init, goal):
     #initilize frontier with inital state of problem
@@ -156,6 +159,7 @@ def A_star_euc(init, goal):
     while(head.parent!=None):
         path.insert(0,head.operator)
         head = head.parent
+
     return path
 
 def main():
