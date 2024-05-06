@@ -196,22 +196,16 @@ def main():
     
     userAlgo = input("Enter your choice of algorithm: \n1 for Uniform Cost Search\n2 for A* with the Misplaced Tile heuristic.\n3 for A* with the Euclidean distance heuristic.\nPress enter after choice of algorithm.\n")
 
-    if userAlgo == 1:
+    if userAlgo == '1':
         print(f"Uniform Cost Search selected.")
         # Do Uniform Cost Search
         finished = ucs(userPuzzle, goal())
         print(finished)
-    elif userAlgo == 2:
+    elif userAlgo == '3':
         print(f"A* with the Misplaced Tile heuristic selected.")
         # Do A* with Misplaced Tile heuristic
-    elif userAlgo == 3:
+    elif userAlgo == '3':
         print(f"A* with the Euclidean distance heuristic selected.")
         # Do A* with Euclidean distance heuristic
-
-    # Checking Puzzle
-    print("User Puzzle:")
-    print(userPuzzle)
-    finished = ucs(userPuzzle, goal())
-    print(finished)
 
 main()
