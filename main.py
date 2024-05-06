@@ -143,6 +143,10 @@ def A_star_missing(init, goal):
             item.heuristic+=item.depth
         frontier.sort(key=operator.attrgetter('heuristic'))
         #backtrack to get the path
+
+        if len(frontier) > max_nodes_in_queue:
+            max_nodes_in_queue = len(frontier)
+        
     path = []
     while(head.parent!=None):
         print(f"Expanding this node: ")
@@ -188,10 +192,14 @@ def A_star_euc(init, goal):
                 expanded_nodes += 1 
         #sort frontier by depth + heuristic
         for item in frontier:
-            hmissing(item,goal)
-            item.heuristic+=item.depth
+            heuc(item, goal)  # Calculate the Euclidean distance heuristic for each node
+            item.heuristic += item.depth  # Add the depth to the heuristic value
         frontier.sort(key=operator.attrgetter('heuristic'))
         #backtrack to get the path
+
+        if len(frontier) > max_nodes_in_queue:
+            max_nodes_in_queue = len(frontier)
+
     path = []
     while(head.parent!=None):
         print(f"Expanding this node: ")
@@ -222,11 +230,11 @@ def main():
         userPuzzle = [1, 4, 7, 2, 5, 0, 3, 6, 8] 
     elif userChoice == '2':
         print(f"Enter your puzzle, use a zero to represent the blank and press enter after each column.")
-        print(f"For example,\n 1 2 3\n 4 5 6\n 7 0 8\n Will be inputted as \"1 4 7\" then press enter, \"2 5 0\" then press enter, \"3 6 8\" then press enter.")
+        #print(f"For example,\n 1 2 3\n 4 5 6\n 7 0 8\n Will be inputted as \"1 4 7\" then press enter, \"2 5 0\" then press enter, \"3 6 8\" then press enter.")
 
-        firstRow = input("Enter the first column, use space or tabs between numbers: ")
-        secondRow = input("Enter the second column, use space or tabs between numbers: ")
-        thirdRow = input("Enter the third column, use space or tabs between numbers: ")
+        firstRow = input("Enter the first row, use space or tabs between numbers: ")
+        secondRow = input("Enter the second row, use space or tabs between numbers: ")
+        thirdRow = input("Enter the third row, use space or tabs between numbers: ")
 
         # Uses split function to split the input into a list of strings by the spaces or tabs
         # Turns into the user input into ints
@@ -234,9 +242,8 @@ def main():
         secondRow = [int(num) for num in secondRow.split(" ")]
         thirdRow = [int(num) for num in thirdRow.split(" ")]
 
-        userPuzzle.extend(firstRow)
-        userPuzzle.extend(secondRow)
-        userPuzzle.extend(thirdRow)
+        # Our function takes it as columns 
+        userPuzzle = [firstRow[0], secondRow[0], thirdRow[0], firstRow[1], secondRow[1], thirdRow[1], firstRow[2], secondRow[2], thirdRow[2]]
             
     userAlgo = input("Enter your choice of algorithm: \n1 for Uniform Cost Search\n2 for A* with the Misplaced Tile heuristic.\n3 for A* with the Euclidean distance heuristic.\nPress enter after choice of algorithm.\n")
 
