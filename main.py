@@ -191,7 +191,7 @@ def A_star_euc(init, goal):
     while(head.parent!=None):
         path.insert(0,head.operator)
         head = head.parent
-        
+
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
@@ -213,6 +213,8 @@ def main():
         userPuzzle = [1, 4, 7, 2, 5, 0, 3, 6, 8] 
     elif userChoice == '2':
         print(f"Enter your puzzle, use a zero to represent the blank and press enter after each column.")
+        print(f"For example,\n 1 2 3\n 4 5 6\n 7 0 8\n Will be inputted as \"1 4 7\" then press enter, \"2 5 0\" then press enter, \"3 6 8\" then press enter.")
+
         firstRow = input("Enter the first column, use space or tabs between numbers: ")
         secondRow = input("Enter the second column, use space or tabs between numbers: ")
         thirdRow = input("Enter the third column, use space or tabs between numbers: ")
@@ -232,14 +234,17 @@ def main():
     if userAlgo == '1':
         print(f"Uniform Cost Search selected.")
         # Do Uniform Cost Search
-        ucs(userPuzzle, goal())
+        movesMade = ucs(userPuzzle, goal())
+        print(f"Moves made: {movesMade}")
     elif userAlgo == '2':
         print(f"A* with the Misplaced Tile heuristic selected.")
         # Do A* with Misplaced Tile heuristic
-        A_star_missing(userPuzzle, goal())
+        movesMade = A_star_missing(userPuzzle, goal())
+        print(f"Moves made: {movesMade}")
     elif userAlgo == '3':
         print(f"A* with the Euclidean distance heuristic selected.")
         # Do A* with Euclidean distance heuristic
-        A_star_euc(userPuzzle, goal())
+        movesMade = A_star_euc(userPuzzle, goal())
+        print(f"Moves made: {movesMade}")
 
 main()
