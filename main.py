@@ -28,8 +28,7 @@ def heuc(state, goal):
             match += ((state_pos[0] - goal_pos[0]) ** 2 + (state_pos[1] - goal_pos[1]) ** 2) ** 0.5
     state.heuristic = match
 
-def display_board(state):
-    print( "State:")
+def trace(state):
     print( "%i %i %i" % (state[0], state[3], state[6]))
     print( "%i %i %i" % (state[1], state[4], state[7]))
     print( "%i %i %i" % (state[2], state[5], state[8]))
@@ -58,7 +57,6 @@ def ucs(init, goal):
 
     expanded_nodes = 0
     max_nodes_in_queue = 1
-
     while (head.state!=goal):
         #if frontier is empty, return failure
         if len(frontier) == 0:
@@ -68,8 +66,7 @@ def ucs(init, goal):
 
         #if node contains goal state, return solution
         if head.state == goal:
-            print("GOAL!!!")
-            print(f"The depth of the goal node was ", head.depth)
+            print(f"The depth of the goal node was", head.depth)
             continue
         #add node to explored set
         explored.append(head)
@@ -88,8 +85,14 @@ def ucs(init, goal):
         #backtrack to get the path
     path = []
     while(head.parent!=None):
+        print(f"Expanding this node: ")
+        trace(head.state)
+        path.insert(0,head.state)
         path.insert(0,head.operator)
         head = head.parent
+    print(f"Expanding state: ")
+    trace(initial_node.state)
+    print("Trace goes bottom up: ")
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
@@ -124,8 +127,7 @@ def A_star_missing(init, goal):
         head = frontier.pop(0)
         #if node contains goal state, return solution
         if head.state == goal:
-            print("GOAL!!!")
-            print(f"The depth of the goal node was ", head.depth)
+            print(f"The depth of the goal node was", head.depth)
             exit
         #add node to explored set
         explored.append(head)
@@ -143,9 +145,13 @@ def A_star_missing(init, goal):
         #backtrack to get the path
     path = []
     while(head.parent!=None):
+        print(f"Expanding this node: ")
+        trace(head.state)
         path.insert(0,head.operator)
         head = head.parent
-
+    print(f"Expanding state: ")
+    trace(initial_node.state)
+    print("Trace goes bottom up: ")
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
@@ -170,8 +176,7 @@ def A_star_euc(init, goal):
         head = frontier.pop(0)
         #if node contains goal state, return solution
         if head.state == goal:
-            print("GOAL!!!")
-            print(f"The depth of the goal node was ", head.depth)
+            print(f"The depth of the goal node was", head.depth)
             exit
         #add node to explored set
         explored.append(head)
@@ -189,9 +194,13 @@ def A_star_euc(init, goal):
         #backtrack to get the path
     path = []
     while(head.parent!=None):
+        print(f"Expanding this node: ")
+        trace(head.state)
         path.insert(0,head.operator)
         head = head.parent
-
+    print(f"Expanding state: ")
+    trace(initial_node.state)
+    print("Trace goes bottom up: ")
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
