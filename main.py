@@ -84,15 +84,19 @@ def ucs(init, goal):
 
         #backtrack to get the path
     path = []
+    pathLength = 0
     while(head.parent!=None):
-        print(f"Expanding this node: ")
-        trace(head.state)
-        path.insert(0,head.state)
-        path.insert(0,head.operator)
+        path.insert(0,head)
         head = head.parent
+        pathLength += 1
     print(f"Expanding state: ")
     trace(initial_node.state)
-    print("Trace goes bottom up: ")
+    path.reverse()
+    i = pathLength - 1
+    while i >= 0:
+        print(f"Expanding this node with g(n) = {path[i].depth} and h(n) = 0:")
+        trace(path[i].state)
+        i -= 1
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
@@ -103,8 +107,9 @@ def ucs(init, goal):
 def hmissing(state, goal):
     match = 0
     for i in range(0,9):
-        if state.state[i] != goal[i]:
-            match += 1
+        if state.state[i] != 0:
+            if state.state[i] != goal[i]:
+                match += 1
     state.heuristic=match
 
 #function
@@ -148,14 +153,19 @@ def A_star_missing(init, goal):
             max_nodes_in_queue = len(frontier)
         
     path = []
+    pathLength = 0
     while(head.parent!=None):
-        print(f"Expanding this node: ")
-        trace(head.state)
-        path.insert(0,head.operator)
+        path.insert(0,head)
         head = head.parent
+        pathLength += 1
     print(f"Expanding state: ")
     trace(initial_node.state)
-    print("Trace goes bottom up: ")
+    path.reverse()
+    i = pathLength - 1
+    while i >= 0:
+        print(f"Expanding this node with g(n) = {path[i].depth} and h(n) = {path[i].heuristic - path[i].depth}:")
+        trace(path[i].state)
+        i -= 1
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
@@ -201,14 +211,19 @@ def A_star_euc(init, goal):
             max_nodes_in_queue = len(frontier)
 
     path = []
+    pathLength = 0
     while(head.parent!=None):
-        print(f"Expanding this node: ")
-        trace(head.state)
-        path.insert(0,head.operator)
+        path.insert(0,head)
         head = head.parent
+        pathLength += 1
     print(f"Expanding state: ")
     trace(initial_node.state)
-    print("Trace goes bottom up: ")
+    path.reverse()
+    i = pathLength - 1
+    while i >= 0:
+        print(f"Expanding this node with g(n) = {path[i].depth} and h(n) = {path[i].heuristic - path[i].depth}:")
+        trace(path[i].state)
+        i -= 1
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
