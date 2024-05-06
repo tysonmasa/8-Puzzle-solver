@@ -85,9 +85,11 @@ def ucs(init, goal):
         #backtrack to get the path
     path = []
     pathLength = 0
+    movesMade = []
     while(head.parent!=None):
         path.insert(0,head)
         head = head.parent
+        movesMade.insert(0, head.operator)
         pathLength += 1
     print(f"Expanding state: ")
     trace(initial_node.state)
@@ -97,6 +99,7 @@ def ucs(init, goal):
         print(f"Expanding this node with g(n) = {path[i].depth} and h(n) = 0:")
         trace(path[i].state)
         i -= 1
+    print(f"Moves Made: {movesMade}")
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
@@ -154,8 +157,10 @@ def A_star_missing(init, goal):
         
     path = []
     pathLength = 0
+    movesMade = []
     while(head.parent!=None):
         path.insert(0,head)
+        movesMade.insert(0, head.operator)
         head = head.parent
         pathLength += 1
     print(f"Expanding state: ")
@@ -166,6 +171,7 @@ def A_star_missing(init, goal):
         print(f"Expanding this node with g(n) = {path[i].depth} and h(n) = {path[i].heuristic - path[i].depth}:")
         trace(path[i].state)
         i -= 1
+    print(f"Moves Made: {movesMade}")
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
@@ -211,9 +217,11 @@ def A_star_euc(init, goal):
             max_nodes_in_queue = len(frontier)
 
     path = []
+    movesMade = []
     pathLength = 0
     while(head.parent!=None):
         path.insert(0,head)
+        movesMade.insert(0, head.operator)
         head = head.parent
         pathLength += 1
     print(f"Expanding state: ")
@@ -224,6 +232,7 @@ def A_star_euc(init, goal):
         print(f"Expanding this node with g(n) = {path[i].depth} and h(n) = {path[i].heuristic - path[i].depth}:")
         trace(path[i].state)
         i -= 1
+    print(f"Moves Made: {movesMade}")
     print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
     print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
