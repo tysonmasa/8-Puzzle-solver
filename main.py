@@ -55,17 +55,21 @@ def ucs(init, goal):
     #initialize explored set to empty
     explored = []
     head = initial_node
+
+    expanded_nodes = 0
+    max_nodes_in_queue = 1
+
     while (head.state!=goal):
-        print("frontier")
         #if frontier is empty, return failure
         if len(frontier) == 0:
             return 1 #"failure"
         #choose leaf node and remove from frontier
-        print(head.state)
         head = frontier.pop(0)
-        print(head.state)
+
         #if node contains goal state, return solution
         if head.state == goal:
+            print("GOAL!!!")
+            print(f"The depth of the goal node was ", head.depth)
             continue
         #add node to explored set
         explored.append(head)
@@ -74,13 +78,20 @@ def ucs(init, goal):
         for item in newNodes:
             if item not in explored or item not in frontier:
                 frontier.append(item)
+                expanded_nodes += 1
         #sort frontier by depth
         frontier.sort(key=operator.attrgetter('depth'))
+
+        if len(frontier) > max_nodes_in_queue:
+            max_nodes_in_queue = len(frontier)
+            
         #backtrack to get the path
     path = []
     while(head.parent!=None):
         path.insert(0,head.operator)
         head = head.parent
+    print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
+    print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
 
 
@@ -188,6 +199,7 @@ def main():
         thirdRow = input("Enter the third column, use space or tabs between numbers: ")
 
         # Uses split function to split the input into a list of strings by the spaces or tabs
+        # Turns into the user input into ints
         firstRow = [int(num) for num in firstRow.split(" ")]
         secondRow = [int(num) for num in secondRow.split(" ")]
         thirdRow = [int(num) for num in thirdRow.split(" ")]
@@ -196,15 +208,12 @@ def main():
         userPuzzle.extend(secondRow)
         userPuzzle.extend(thirdRow)
             
-        print(userPuzzle)
-
     userAlgo = input("Enter your choice of algorithm: \n1 for Uniform Cost Search\n2 for A* with the Misplaced Tile heuristic.\n3 for A* with the Euclidean distance heuristic.\nPress enter after choice of algorithm.\n")
 
     if userAlgo == '1':
         print(f"Uniform Cost Search selected.")
         # Do Uniform Cost Search
-        finished = ucs(userPuzzle, goal())
-        print(finished)
+        ucs(userPuzzle, goal())
     elif userAlgo == '3':
         print(f"A* with the Misplaced Tile heuristic selected.")
         # Do A* with Misplaced Tile heuristic
