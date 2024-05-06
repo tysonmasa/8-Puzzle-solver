@@ -84,7 +84,7 @@ def ucs(init, goal):
 
         if len(frontier) > max_nodes_in_queue:
             max_nodes_in_queue = len(frontier)
-            
+
         #backtrack to get the path
     path = []
     while(head.parent!=None):
@@ -111,7 +111,11 @@ def A_star_missing(init, goal):
     frontier = [initial_node]
     #initialize explored set to empty
     explored = []
-    head = None
+    head = initial_node
+
+    expanded_nodes = 0
+    max_nodes_in_queue = 1
+
     while (head.state!=goal):
         #if frontier is empty, return failure
         if len(frontier) == 0:
@@ -120,6 +124,8 @@ def A_star_missing(init, goal):
         head = frontier.pop(0)
         #if node contains goal state, return solution
         if head.state == goal:
+            print("GOAL!!!")
+            print(f"The depth of the goal node was ", head.depth)
             exit
         #add node to explored set
         explored.append(head)
@@ -128,6 +134,7 @@ def A_star_missing(init, goal):
         for item in newNodes:
             if item not in explored or item not in frontier:
                 frontier.append(item)
+                expanded_nodes += 1
         #sort frontier by depth + heuristic
         for item in frontier:
             hmissing(item,goal)
@@ -138,6 +145,9 @@ def A_star_missing(init, goal):
     while(head.parent!=None):
         path.insert(0,head.operator)
         head = head.parent
+
+    print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
+    print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
 
 #function
@@ -147,7 +157,11 @@ def A_star_euc(init, goal):
     frontier = [initial_node]
     #initialize explored set to empty
     explored = []
-    head = None
+    head = initial_node
+
+    expanded_nodes = 0
+    max_nodes_in_queue = 1
+
     while (head.state!=goal):
         #if frontier is empty, return failure
         if len(frontier) == 0:
@@ -156,6 +170,8 @@ def A_star_euc(init, goal):
         head = frontier.pop(0)
         #if node contains goal state, return solution
         if head.state == goal:
+            print("GOAL!!!")
+            print(f"The depth of the goal node was ", head.depth)
             exit
         #add node to explored set
         explored.append(head)
@@ -164,6 +180,7 @@ def A_star_euc(init, goal):
         for item in newNodes:
             if item not in explored or item not in frontier:
                 frontier.append(item)
+                expanded_nodes += 1 
         #sort frontier by depth + heuristic
         for item in frontier:
             hmissing(item,goal)
@@ -174,7 +191,9 @@ def A_star_euc(init, goal):
     while(head.parent!=None):
         path.insert(0,head.operator)
         head = head.parent
-
+        
+    print(f"To solve this problem the search algorithm expanded a total of {expanded_nodes} nodes." )
+    print(f"The maximum number of nodes in the queue at any one time: {max_nodes_in_queue}.")
     return path
 
 def goal():
@@ -214,11 +233,13 @@ def main():
         print(f"Uniform Cost Search selected.")
         # Do Uniform Cost Search
         ucs(userPuzzle, goal())
-    elif userAlgo == '3':
+    elif userAlgo == '2':
         print(f"A* with the Misplaced Tile heuristic selected.")
         # Do A* with Misplaced Tile heuristic
+        A_star_missing(userPuzzle, goal())
     elif userAlgo == '3':
         print(f"A* with the Euclidean distance heuristic selected.")
         # Do A* with Euclidean distance heuristic
+        A_star_euc(userPuzzle, goal())
 
 main()
