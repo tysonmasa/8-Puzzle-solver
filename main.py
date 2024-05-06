@@ -49,7 +49,7 @@ def expand_node(node): # return 4 different child node
 #uniform cost search
 def ucs(init, goal):
     #initilize frontier with inital state of problem
-    initial_node = Node(init, None, None, 0, 0)
+    initial_node = Node(init, 0, None, 0, None)
     frontier = [initial_node]
     #initialize explored set to empty
     explored = []
@@ -110,7 +110,7 @@ def hmissing(state, goal):
 #function
 def A_star_missing(init, goal):
     #initilize frontier with inital state of problem
-    initial_node = Node(init, None, None, 0, 0)
+    initial_node = Node(init, 0, None, 0, None)
     frontier = [initial_node]
     #initialize explored set to empty
     explored = []
@@ -159,7 +159,7 @@ def A_star_missing(init, goal):
 #function
 def A_star_euc(init, goal):
     #initilize frontier with inital state of problem
-    initial_node = Node(init, None, None, 0, 0)
+    initial_node = Node(init, 0, None, 0, None)
     frontier = [initial_node]
     #initialize explored set to empty
     explored = []
