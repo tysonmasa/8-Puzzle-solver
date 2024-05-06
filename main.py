@@ -39,10 +39,10 @@ def create_node(state, cost, parent_node, depth, operator):
 
 def expand_node(node): # return 4 different child node
     expanded_nodes = []
-    expanded_nodes.append(create_node(move.tileUp(node.state), 0, node, node.depth + 1, "u"))
-    expanded_nodes.append(create_node(move.tileDown(node.state), 0, node , node.depth + 1, "d"))
-    expanded_nodes.append(create_node(move.tileLeft(node.state), 0, node, node.depth + 1, "l"))
-    expanded_nodes.append(create_node(move.tileRight(node.state), 0, node, node.depth + 1, "r")) # have a list of child node in 4 directions
+    expanded_nodes.append(create_node(move.tileUp(node.state), 0, node, node.depth + 1, "Up"))
+    expanded_nodes.append(create_node(move.tileDown(node.state), 0, node , node.depth + 1, "Down"))
+    expanded_nodes.append(create_node(move.tileLeft(node.state), 0, node, node.depth + 1, "Left"))
+    expanded_nodes.append(create_node(move.tileRight(node.state), 0, node, node.depth + 1, "Right")) # have a list of child node in 4 directions
 
     expanded_nodes = [node for node in expanded_nodes if node.state != None]  # keep only possible node
     return expanded_nodes
@@ -172,6 +172,8 @@ def goal():
 
 
 def main():
+    userPuzzle = []
+
     print(f"Welcome to Group 29s 8 puzzle solver.")
     userChoice = input("Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle.\n")
 
@@ -186,14 +188,16 @@ def main():
         thirdRow = input("Enter the third column, use space or tabs between numbers: ")
 
         # Uses split function to split the input into a list of strings by the spaces or tabs
-        firstRow = firstRow.split(" ")
-        secondRow = secondRow.split(" ")
-        thirdRow = thirdRow.split(" ")
+        firstRow = [int(num) for num in firstRow.split(" ")]
+        secondRow = [int(num) for num in secondRow.split(" ")]
+        thirdRow = [int(num) for num in thirdRow.split(" ")]
 
-        # Combines them into list
-        userPuzzle = firstRow, secondRow, thirdRow
+        userPuzzle.extend(firstRow)
+        userPuzzle.extend(secondRow)
+        userPuzzle.extend(thirdRow)
+            
+        print(userPuzzle)
 
-    
     userAlgo = input("Enter your choice of algorithm: \n1 for Uniform Cost Search\n2 for A* with the Misplaced Tile heuristic.\n3 for A* with the Euclidean distance heuristic.\nPress enter after choice of algorithm.\n")
 
     if userAlgo == '1':
