@@ -1,4 +1,4 @@
-# CS170_Lab1_8Puzzle  
+# 8Puzzle  
 Group 29 By:  
 Chun-Ying Wang (cwang399@ucr.edu)  
 Art Guinto (aguin005@ucr.edu)  
